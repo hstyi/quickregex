@@ -2,6 +2,8 @@
 
 import java.io.File
 
+val isNextGeneration = args.isNotEmpty() && args.first() == "--ng"
+
 val dir = File("quickregex")
 if (dir.exists()) {
     dir.deleteRecursively()
@@ -36,9 +38,11 @@ fun createSource() {
         """
         #ifndef QUICKREGEX_OPAQUE
         #define QUICKREGEX_OPAQUE
+        ${if (isNextGeneration) "#include <stdbool.h>" else String()}
+        
 
-        int lre_check_stack_overflow(void *opaque, size_t alloca_size) {
-            return 0;
+        ${if (isNextGeneration) "bool" else "int"} lre_check_stack_overflow(void *opaque, size_t alloca_size) {
+            return ${if (isNextGeneration) "false" else "0"};
         }
 
         void *lre_realloc(void *opaque, void *ptr, size_t size) {
@@ -63,11 +67,13 @@ fun copyFiles() {
         "libunicode.h", "libunicode-table.h", "libregexp.h"
     )) {
         var text = File("quickjs/${filename}").readText()
-        if ("libunicode.c" == filename) {
-            text = text.replace("char_range_s", "char_range_s_rename")
-        } else if ("dtoa.c" == filename) {
-            text = text.replace("#include <sys/time.h>", "// #include <sys/time.h>")
-                .replace("#include <setjmp.h>", "// #include <setjmp.h>")
+        if (isNextGeneration.not()) {
+            if ("libunicode.c" == filename) {
+                text = text.replace("char_range_s", "char_range_s_rename")
+            } else if ("dtoa.c" == filename) {
+                text = text.replace("#include <sys/time.h>", "// #include <sys/time.h>")
+                    .replace("#include <setjmp.h>", "// #include <setjmp.h>")
+            }
         }
         File(dir, filename).writeText(text)
 
