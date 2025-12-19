@@ -1,6 +1,6 @@
 # QuickRegEx
 
-QuickRegEx is an extraction of the regular expression module from QuickJS, enabling developers to easily integrate it into their projects.
+QuickRegEx is an extraction of the regular expression module from [QuickJS](https://github.com/bellard/quickjs) / [QuickJS-NG](https://github.com/quickjs-ng/quickjs), enabling developers to easily integrate it into their projects.
 
 ## How to Use?
 
@@ -79,3 +79,11 @@ int main(void) {
     return 0;
 }
 ```
+
+## Supported Platforms
+
+| OS      | QuickRegEx | QuickRegEx NG |
+|---------|:----------:|:-------------:|
+| macOS   |     √      |       √       |
+| Windows |     ×      |       √       |
+| Linux   |     √      |       √       |
