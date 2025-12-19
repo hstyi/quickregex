@@ -1,0 +1,35 @@
+name: Generate QuickRegEx
+
+on:
+  workflow_dispatch:
+    inputs:
+      quickjs:
+        description: 'QuickJS ref'
+        required: true
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: recursive
+
+      - name: Checkout QuickJS repository
+        uses: actions/checkout@v4
+        with:
+          repository: bellard/quickjs
+          ref: ${{ github.event.inputs.quickjs }}
+          path: quickjs
+
+      - name: Generate
+        run: |
+          ./build.main.kts
+
+      - name: Upload QuickRegEx artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: quickregex
+          path: ./quickregex/
+          if-no-files-found: error
