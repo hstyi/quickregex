@@ -4,7 +4,7 @@ QuickRegEx is an extraction of the regular expression module from QuickJS, enabl
 
 ## How to Use?
 
-You need to download the [latest version](https://github.com/hstyi/quick-regex/releases/latest) and then include `quickregex/quickregex.h` in your project.
+You need to download the [latest version](https://github.com/hstyi/quickregex/releases/latest) and then include `quickregex/quickregex.h` in your project.
 
 ### CMakeLists.txt
 
