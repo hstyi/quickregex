@@ -2,7 +2,7 @@
 
 import java.io.File
 
-val isNextGeneration = args.isNotEmpty() && args.first() == "--ng"
+val isNextGeneration = args.isNotEmpty() && args.map { it.trim() }.contains("--ng")
 
 val dir = File("quickregex")
 if (dir.exists()) {
