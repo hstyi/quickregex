@@ -61,8 +61,8 @@ fun createSource() {
 }
 
 fun copyFiles() {
-    for (filename in setOf(
-        "cutils.c", "cutils.h", "dtoa.c", "dtoa.h",
+    for (filename in setOfNotNull(
+        if (isNextGeneration) null else "cutils.c", "cutils.h", "dtoa.c", "dtoa.h",
         "libregexp.c", "libregexp-opcode.h", "libunicode.c",
         "libunicode.h", "libunicode-table.h", "libregexp.h"
     )) {
